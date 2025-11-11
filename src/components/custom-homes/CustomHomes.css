@@ -1,0 +1,195 @@
+.container {
+  position: relative;
+  background-image: url('../../assets/images/bg06.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  padding: 200px !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  text-align: center !important;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(77, 71, 71, 0.2); 
+  z-index: -1;
+}
+
+.container .home-title {
+  color: #ffffff !important;
+  font-size: 72px !important;
+  padding-top: 100px !important;
+}
+
+.container .home-title-small {
+  color: #ffffff !important;
+  font-size: 40px !important;
+  padding-bottom: 100px !important;
+}
+
+
+.case-studies {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+@media (min-width: 900px) {
+  .case-studies {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+.case-studies-sub {
+  position: relative;
+  text-align: center !important;
+  width: 30%;
+  height: 70vh;
+}
+
+.case-studies-sub1-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case1/main.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}
+
+.case-studies-sub2-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case2/main.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+} 
+
+.case-studies-sub3-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case3/main.jpg') !important;   
+  background-size: cover !important;  
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+} 
+
+.case-studies-sub4-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case4/main.jpg') !important;   
+  background-size: cover !important;      
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}  
+
+.case-studies-sub5-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case5/main.jpg') !important;   
+  background-size: cover !important;  
+  background-position: center !important;  
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}   
+
+.case-studies-sub6-image {
+  position: relative;
+  background-image: url('../../assets/images/custom-homes/case6/main.jpg') !important;   
+  background-size: cover !important;  
+  background-position: center !important;  
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}  
+
+.case-studies-sub-title {
+  position: relative;
+  color: #570f17 !important;
+  width: 100%;
+  height: 10%;
+  font-size: 30px !important;
+  font-style: italic !important;
+  padding: 20px 0 20px 0 !important;
+}
+
+.case-studies-sub-text {
+  position: relative;
+  color: #444242 !important;
+  width: 100%;
+  height: 25%;
+  font-size: 18px !important;
+}
+
+.case-studies-sub-text1 {
+  position: relative;
+  color: #444242 !important;
+  width: 100%;
+  height: 30%;
+  font-size: 18px !important;
+}
+
+.case-studies-sub-button {
+  position: relative;
+  width: 100%;
+  height: 15%;
+  font-size: 18px !important;
+}
+
+.learn-more-button {
+  background-color: transparent !important;
+  color: #570f17 !important;
+  border-radius: 0px !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 20px !important;
+  letter-spacing: 2px !important;
+  border: 1px solid #807d7e !important;
+}
+
+.learn-more-button:hover {
+  background-color: #570f17 !important;
+  color: #ffffff !important;
+  border: 1px solid #570f17 !important;
+}

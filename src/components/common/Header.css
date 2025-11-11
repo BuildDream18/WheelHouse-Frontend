@@ -1,0 +1,82 @@
+.header {
+    box-sizing: border-box;
+    padding: 20px 5% 20px 5% !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.header a {
+    text-decoration: none !important;
+    color: #586179 !important;
+}
+
+.header a:hover {
+    text-decoration: none !important;
+    color: #252b39 !important;
+}
+
+.header .logo {
+    width: auto !important;
+    height: 90px !important;
+    background-color: transparent !important;
+}   
+
+.header .logo:hover {
+    background-color: transparent !important;
+}
+
+.menu-item-wrapper {
+    position: relative;
+    display: inline-block;
+}
+  
+.menu-link {
+    position: relative;
+    z-index: 2;
+    padding: 8px 12px;
+}
+  
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: #3a434a;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 10;
+    padding: 12px 0;
+}
+
+.submenu a {
+    color: white !important;
+}
+
+.submenu a:hover {
+    color: white !important;
+}
+  
+.menu-item-wrapper:hover .submenu {
+    display: block;
+}
+  
+.submenu-link {
+    display: block;
+    color: #e5e4df !important;
+    padding: 8px 24px;
+    text-decoration: none !important;
+    font-family: 'Montserrat', serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    transition: background 0.2s;
+}
+  
+.submenu-link:hover {
+    background: #252b39;
+    color: #fff !important;
+}

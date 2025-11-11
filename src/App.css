@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    height: 100vh; /* Full height of the viewport */
+    font-family: 'Poppins' !important;
+    background-color: #d8d8d4 !important;
+}
+
+.global-button {
+    background-color: #570f17 !important;
+    color: #ffffff !important;
+    border-radius: 5px !important;
+    text-transform: uppercase !important;
+    font-size: 16px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 30px !important;
+    letter-spacing: 4px !important;
+}
+
+.global-button:hover {
+    background-color: #911515 !important;
+    color: #ffffff !important;
+}
+
+.global-line {
+    border-top: 1px solid rgba(120,110,94,.14) !important;
+    width: 80% !important;
+    margin: 20px 0 !important;
+}
+
+.main-content {
+    padding-top: 120px; /* Adjust as needed based on your header's height */
+}

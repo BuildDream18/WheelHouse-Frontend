@@ -1,0 +1,6 @@
+/* ComplimentaryGuide.css */
+@media (max-width: 800px) {
+  img {
+    max-width: 220px !important;
+  }
+}

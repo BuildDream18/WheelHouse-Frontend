@@ -1,0 +1,151 @@
+.case2-title {
+  color: #570f17 !important;
+  font-size: 3.5rem !important;
+  padding: 40px 0 20px 0 !important;
+  text-align: center !important;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.case2-study-content {
+  position: relative;
+  padding: 40px 5%;
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 1200px;
+  min-height: 350px; /* optional: ensures enough height for the info box */
+}
+
+.case2-study-introduction {
+  width: 100%;
+  font-size: 1.15rem;
+  color: #444;
+  line-height: 1.7;
+  padding-right: 32%;
+  /* Add right padding so text doesn't go under the info box */
+}
+
+.case2-study-info {
+  position: absolute;
+  top: 40px;
+  right: 0%;
+  width: 25%;
+  min-width: 220px;
+  background: #f7f6f2;
+  border-radius: 8px;
+  padding: 24px 20px;
+  color: #222;
+  font-size: 1.1rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  z-index: 2;
+}
+
+.case2-font-bold {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: inline-block;
+  color: #570f17;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .case2-study-content {
+    flex-direction: column;
+    padding: 24px 2%;
+    min-height: unset;
+  }
+  .case2-study-introduction {
+    width: 100%;
+    padding-right: 0;
+  }
+  .case2-study-info {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
+    min-width: unset;
+  }
+}
+
+.case2-study-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+@media (min-width: 900px) {
+  .case2-study-list {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+.case2-study-subtype1 {
+  position: relative;
+  text-align: center !important;
+  width: 30%;
+  height: 200vh;
+}
+
+.case2-study-subtype2 {
+  position: relative;
+  text-align: center !important;
+  width: 50%;
+  height: 20vh;
+}
+
+.case2-study1-sub1 {
+  position: relative;
+  background-image: url('../../../assets/images/custom-homes/case1/1.jpg') !important;   
+  background-size: cover !important;      
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}  
+
+.case2-study1-sub2 {
+  position: relative;
+  background-image: url('../../../assets/images/custom-homes/case1/main.jpg') !important;   
+  background-size: cover !important;      
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}  
+
+.case-study2-sub-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+} 
+
+.case-study2-button {
+  background-color: #570f17;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-left: 20px !important;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 1) !important; 
+}

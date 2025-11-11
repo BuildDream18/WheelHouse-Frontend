@@ -1,0 +1,152 @@
+.renovation-container {
+  position: relative;
+  background-image: url('../../assets/images/bg07.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  padding: 200px !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  text-align: center !important;
+}
+
+.renovation-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(77, 71, 71, 0.2); 
+  z-index: -1;
+}
+
+.renovation-container .renovation-home-title {
+  color: #ffffff !important;
+  font-size: 72px !important;
+  padding-top: 100px !important;
+}
+
+.renovation-container .renovation-home-title-small {
+  color: #ffffff !important;
+  font-size: 40px !important;
+  padding-bottom: 100px !important;
+}
+
+.renovation-case-studies {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+@media (min-width: 900px) {
+  .renovation-case-studies {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+.renovation-case-studies-sub {
+  position: relative;
+  text-align: center !important;
+  width: 30%;
+  height: 70vh;
+}
+
+.renovation-case-studies-sub1-image {
+  position: relative;
+  background-image: url('../../assets/images/renovations/case1/main.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}
+
+.renovation-case-studies-sub2-image {
+  position: relative;
+  background-image: url('../../assets/images/renovations/case2/main.jpg') !important;   
+  background-size: cover !important;
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+} 
+
+.renovation-case-studies-sub3-image {
+  position: relative;
+  background-image: url('../../assets/images/renovations/case3/main.jpg') !important;   
+  background-size: cover !important;  
+  background-position: center !important; 
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  margin-top: 0px !important;
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+} 
+
+.renovation-case-studies-sub-title {
+  position: relative;
+  color: #570f17 !important;
+  width: 100%;
+  height: 10%;
+  font-size: 30px !important;
+  font-style: italic !important;
+  padding: 20px 0 20px 0 !important;
+}
+
+.renovation-case-studies-sub-text {
+  position: relative;
+  color: #444242 !important;
+  width: 100%;
+  height: 15%;
+  font-size: 18px !important;
+}
+
+.renovation-case-studies-sub-text1 {
+  position: relative;
+  color: #444242 !important;
+  width: 100%;
+  height: 30%;
+  font-size: 18px !important;
+}
+
+.renovation-case-studies-sub-button {
+  position: relative;
+  width: 100%;
+  height: 15%;
+  font-size: 18px !important;
+}
+
+.renovation-learn-more-button {
+  background-color: transparent !important;
+  color: #570f17 !important;
+  border-radius: 0px !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 20px !important;
+  letter-spacing: 2px !important;
+  border: 1px solid #807d7e !important;
+}
+
+.renovation-learn-more-button:hover {
+  background-color: #570f17 !important;
+  color: #ffffff !important;
+  border: 1px solid #570f17 !important;
+}

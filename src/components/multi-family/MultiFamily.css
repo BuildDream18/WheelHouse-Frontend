@@ -70,6 +70,31 @@
   }
 }
 
+@media (max-width: 600px) {
+  .multi-family-title {
+    font-size: 2rem !important;
+    padding: 30px 15px 15px 15px !important;
+  }
+  
+  .multi-family-content {
+    padding: 20px 3% !important;
+  }
+  
+  .multi-family-introduction {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .multi-family-info {
+    padding: 20px 15px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .multi-family-font-bold {
+    font-size: 0.95rem !important;
+  }
+}
+
 .multi-family-list {
   display: flex;
   flex-direction: column;

@@ -149,3 +149,111 @@
   font-size: 18px;
   color: rgba(31, 30, 28, 0.664);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+  .container-about {
+    padding: 100px 40px !important;
+  }
+  
+  .container-about .home-title {
+    font-size: 48px !important;
+    padding-top: 50px !important;
+  }
+  
+  .container-about .home-title-small {
+    font-size: 28px !important;
+    padding-bottom: 50px !important;
+  }
+  
+  .about-text {
+    padding: 30px 20px !important;
+  }
+  
+  .about-text-content {
+    margin: 0 5% 0 5% !important;
+  }
+  
+  .about-image-left,
+  .about-image-right {
+    width: 100% !important;
+    height: 35vh !important;
+  }
+  
+  .about-image-matt {
+    width: 40% !important;
+    height: 400px !important;
+  }
+  
+  .about-matt-text {
+    width: 55% !important;
+    height: auto !important;
+    margin-left: 20px !important;
+  }
+  
+  .about-matt-text-content {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-about {
+    padding: 60px 20px !important;
+  }
+  
+  .container-about .home-title {
+    font-size: 32px !important;
+    padding-top: 30px !important;
+  }
+  
+  .container-about .home-title-small {
+    font-size: 20px !important;
+    padding-bottom: 30px !important;
+  }
+  
+  .about-text {
+    padding: 20px 15px !important;
+  }
+  
+  .about-text-content {
+    margin: 0 3% 0 3% !important;
+    font-size: 16px !important;
+  }
+  
+  .about-dropcap {
+    font-size: 3.5em !important;
+  }
+  
+  .about-image-left,
+  .about-image-right {
+    width: 100% !important;
+    height: 30vh !important;
+  }
+  
+  .about-image-matt-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 20px !important;
+  }
+  
+  .about-image-matt {
+    width: 80% !important;
+    height: 300px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-matt-text {
+    width: 100% !important;
+    height: auto !important;
+    margin-left: 0 !important;
+  }
+  
+  .about-matt-name {
+    font-size: 24px !important;
+  }
+  
+  .about-matt-text-content {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+}

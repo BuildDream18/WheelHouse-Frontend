@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 body {
@@ -19,6 +20,7 @@ body {
     justify-content: center !important;
     padding: 10px 30px !important;
     letter-spacing: 4px !important;
+    white-space: nowrap;
 }
 
 .global-button:hover {
@@ -34,4 +36,46 @@ body {
 
 .main-content {
     padding-top: 120px; /* Adjust as needed based on your header's height */
+    min-height: calc(100vh - 120px);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+    .main-content {
+        margin-top: 80px !important; /* Match header height (60px logo + 20px padding) */
+        padding-top: 0;
+        min-height: calc(100vh - 80px);
+    }
+    
+    .global-button {
+        font-size: 14px !important;
+        padding: 8px 20px !important;
+        letter-spacing: 2px !important;
+    }
+    
+    .global-line {
+        width: 90% !important;
+        margin: 15px 0 !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        margin-top: 70px !important; /* Match header height (50px logo + 20px padding) */
+        padding-top: 0;
+        min-height: calc(100vh - 70px);
+    }
+    
+    .global-button {
+        font-size: 12px !important;
+        padding: 8px 15px !important;
+        letter-spacing: 1px !important;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .global-line {
+        width: 95% !important;
+        margin: 10px 0 !important;
+    }
 }

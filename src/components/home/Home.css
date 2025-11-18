@@ -69,3 +69,83 @@
     margin-left: 5% !important;
 }
 
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+    .container-home {
+        padding: 100px 40px !important;
+    }
+    
+    .container-home .home-title {
+        font-size: 48px !important;
+        padding-top: 50px !important;
+    }
+    
+    .container-home .home-title-small {
+        font-size: 28px !important;
+        padding-bottom: 50px !important;
+    }
+    
+    .home-introduction {
+        font-size: 24px !important;
+        padding: 30px 20px !important;
+    }
+    
+    .home-introduction-quote {
+        font-size: 16px !important;
+        padding: 30px 20px !important;
+    }
+    
+    .home-introduction-quote-author {
+        font-size: 16px !important;
+        padding: 0 20px !important;
+    }
+    
+    .home-introduction-image {
+        width: 95% !important;
+        height: 60vh !important;
+        margin-right: 2.5% !important;
+        margin-left: 2.5% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .container-home {
+        padding: 60px 20px !important;
+    }
+    
+    .container-home .home-title {
+        font-size: 32px !important;
+        padding-top: 30px !important;
+        line-height: 1.2 !important;
+    }
+    
+    .container-home .home-title-small {
+        font-size: 20px !important;
+        padding-bottom: 30px !important;
+    }
+    
+    .home-introduction {
+        font-size: 18px !important;
+        padding: 20px 15px !important;
+        line-height: 1.4 !important;
+    }
+    
+    .home-introduction-quote {
+        font-size: 14px !important;
+        padding: 20px 15px !important;
+        line-height: 1.5 !important;
+    }
+    
+    .home-introduction-quote-author {
+        font-size: 14px !important;
+        padding: 0 15px !important;
+    }
+    
+    .home-introduction-image {
+        width: 100% !important;
+        height: 50vh !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+

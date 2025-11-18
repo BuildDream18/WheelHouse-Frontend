@@ -1,12 +1,11 @@
 .header {
     box-sizing: border-box;
-    padding: 20px 5% 20px 5% !important;
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    background-color: #f9f9f9 !important;
+    margin-top: 0px !important;
 }
 
 .header a {
@@ -38,6 +37,7 @@
     position: relative;
     z-index: 2;
     padding: 8px 12px;
+    font-size: 0.9rem;
 }
   
 .submenu {
@@ -79,4 +79,50 @@
 .submenu-link:hover {
     background: #252b39;
     color: #fff !important;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+    .header {
+        position: absolute !important;
+    }
+    
+    .header .logo {
+        height: 60px !important;
+    }
+    
+    .menu-link {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        position: absolute !important;
+    }
+    
+    .header .logo {
+        height: 50px !important;
+    }
+}
+
+/* Ensure mobile menu icon is visible - only on mobile */
+@media (max-width: 960px) {
+    .MuiIconButton-root[aria-label="menu"] {
+        color: #586179 !important;
+        display: flex !important;
+    }
+
+    .MuiIconButton-root[aria-label="menu"]:hover {
+        color: #252b39 !important;
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+}
+
+/* Hide menu icon on desktop */
+@media (min-width: 961px) {
+    .MuiIconButton-root[aria-label="menu"] {
+        display: none !important;
+    }
 }

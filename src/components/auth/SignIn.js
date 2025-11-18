@@ -1,6 +1,7 @@
 // src/components/auth/SignIn.js
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
+import './SignIn.css';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');

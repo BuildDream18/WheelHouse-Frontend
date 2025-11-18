@@ -120,3 +120,35 @@
   transition: background-color 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 1) !important; 
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 600px) {
+  .rv-case-study1-title {
+    font-size: 1.8rem !important;
+    padding: 20px 15px 10px 15px !important;
+  }
+  
+  .rv-case-study1-content {
+    padding: 20px 2% !important;
+  }
+  
+  .rv-case-study1-introduction {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .rv-case-study1-info {
+    padding: 20px 15px !important;
+  }
+  
+  .rv-case-study1-font-bold {
+    font-size: 0.95rem !important;
+  }
+  
+  .rv-case-study1-button {
+    font-size: 1rem !important;
+    padding: 8px 15px !important;
+    width: 100%;
+    max-width: 300px;
+  }
+}

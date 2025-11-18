@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import Calendar from "react-calendar";
 import Select from "react-select";
 import { getTimeZones } from '@vvo/tzdb';
-import { gapi } from 'gapi-script';
 import 'react-calendar/dist/Calendar.css';
 import "./Confirmation.css";
 import emailjs from 'emailjs-com';
 import logo from '../../assets/images/logo.png';
 import ComplimentaryGuide from './ComplimentaryGuide';
+
+// Import gapi-script - it's in package.json, but we'll handle errors gracefully
+import { gapi } from 'gapi-script';
 
 const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 const API_KEY = 'YOUR_GOOGLE_API_KEY';
@@ -114,58 +125,261 @@ const TimeZoneSelect = ({ timezone, setTimezone }) => {
 };
   
 
-function Confirmation() {
+// Step definitions to match Booking component
+const customHomesSteps = [
+  {
+    title: 'What stage are you in?',
+    name: 'stage',
+  },
+  {
+    title: 'What is your ideal timeline for moving in?',
+    name: 'timeline',
+  },
+  {
+    title: 'What is your estimated budget for the project?',
+    name: 'budget',
+  },
+];
+
+const renovationSteps = [
+  {
+    title: 'What is your primary goal for this renovation?',
+    name: 'goal',
+  },
+  {
+    title: 'What is your estimated budget for this renovation?',
+    name: 'budget',
+  },
+  {
+    title: 'What is your ideal timeline for completion?',
+    name: 'timeline',
+  },
+];
+
+const firstStep = {
+  title: 'What do you need help with?',
+  name: 'help',
+};
+
+function Confirmation({ bookingAnswers = {} }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
   const [timezone, setTimezone] = useState("Chicago");
   const [showGuide, setShowGuide] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    description: ''
+  });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success' // 'success' or 'error'
+  });
+
+  // Get the steps based on selected help type
+  const getBookingSteps = () => {
+    if (!bookingAnswers.help) return [];
+    
+    let steps = [firstStep];
+    if (bookingAnswers.help === 'Custom Homes') {
+      steps = [...steps, ...customHomesSteps];
+    } else if (bookingAnswers.help === 'Renovation') {
+      steps = [...steps, ...renovationSteps];
+    }
+    return steps;
+  };
+
+  const bookingSteps = getBookingSteps();
 
   function fetchBusySlots() {
-    gapi.load('client:auth2', () => {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-        scope: SCOPES,
-      }).then(() => {
-        return gapi.auth2.getAuthInstance().signIn();
-      }).then(() => {
-        const now = new Date();
-        const end = new Date();
-        end.setDate(now.getDate() + 7); // Next 7 days
-  
-        return gapi.client.calendar.freebusy.query({
-          timeMin: now.toISOString(),
-          timeMax: end.toISOString(),
-          items: [{ id: 'victorcastro9218@gmail.com' }]
+    // Check if API keys are configured (not placeholders)
+    if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY' || 
+        !CLIENT_ID || CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
+      console.log('Google Calendar API not configured. Skipping busy slot check.');
+      return;
+    }
+
+    // Check if gapi is available
+    const gapiInstance = gapi || (typeof window !== 'undefined' ? window.gapi : null);
+    if (!gapiInstance || typeof gapiInstance.load !== 'function') {
+      console.log('Google API not loaded. Skipping busy slot check.');
+      return;
+    }
+
+    try {
+      gapiInstance.load('client:auth2', () => {
+        gapiInstance.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+          scope: SCOPES,
+        }).then(() => {
+          const authInstance = gapiInstance.auth2.getAuthInstance();
+          
+          // Check if user is already signed in
+          if (authInstance.isSignedIn.get()) {
+            // User is already signed in, use existing session
+            return Promise.resolve(authInstance.currentUser.get());
+          } else {
+            // User needs to sign in
+            return authInstance.signIn({
+              prompt: 'consent' // Force consent screen to get refresh token
+            });
+          }
+        }).then(() => {
+          const now = new Date();
+          const end = new Date();
+          end.setDate(now.getDate() + 7); // Next 7 days
+    
+          return gapiInstance.client.calendar.freebusy.query({
+            timeMin: now.toISOString(),
+            timeMax: end.toISOString(),
+            items: [{ id: 'victorcastro9218@gmail.com' }]
+          });
+        }).then(response => {
+          const busyTimes = response.result.calendars['victorcastro9218@gmail.com'].busy;
+          console.log('Busy slots:', busyTimes);
+          // Now you can compute available slots based on your timeSlots array
+        }).catch((error) => {
+          console.error('Error fetching busy slots from Google Calendar:', error);
+          
+          // Handle specific error cases
+          if (error.error === 'invalid_grant' || error.message?.includes('Invalid grant')) {
+            console.warn('OAuth token expired or invalid. User needs to re-authenticate.');
+            // Try to sign out and clear the session
+            try {
+              const authInstance = gapiInstance.auth2?.getAuthInstance();
+              if (authInstance) {
+                authInstance.signOut().then(() => {
+                  console.log('Signed out. User will need to sign in again on next attempt.');
+                });
+              }
+            } catch (signOutError) {
+              console.error('Error signing out:', signOutError);
+            }
+          }
+          
+          // Continue without blocking the UI - the booking system will work without calendar integration
         });
-      }).then(response => {
-        const busyTimes = response.result.calendars['victorcastro9218@gmail.com'].busy;
-        console.log('Busy slots:', busyTimes);
-        // Now you can compute available slots based on your timeSlots array
       });
-    });
+    } catch (error) {
+      console.error('Error initializing Google Calendar API:', error);
+      // Continue without blocking the UI
+    }
   }
 
   useEffect(() => {
     fetchBusySlots();
   }, []);
 
-  const handleBook = () => {
-    const message = `Booking confirmed for ${selectedTime} on ${selectedDate.toDateString()} (${timezone})`;
+  const handleConfirm = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      description: ''
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSend = () => {
+    // Validate form
+    if (!formData.name || !formData.phone || !formData.email) {
+      setSnackbar({
+        open: true,
+        message: 'Please fill in all required fields (Name, Phone, Email)',
+        severity: 'error'
+      });
+      return;
+    }
+
+    // Show progress modal
+    setShowProgress(true);
+    setOpenModal(false);
+
+    // Prepare booking summary from questionnaire
+    const bookingSummary = bookingSteps.map((step) => {
+      const answer = bookingAnswers[step.name];
+      if (!answer) return null;
+      return `- ${step.title}: ${answer}`;
+    }).filter(Boolean).join('\n');
+
+    // Prepare email message
+    const bookingDetails = `
+Booking Questionnaire Answers:
+${bookingSummary}
+
+Meeting Details:
+- Date: ${formatDateHeader(selectedDate)}
+- Time: ${selectedTime}
+- Timezone: ${timeZoneOptions.find(opt => opt.value === timezone)?.label || timezone}
+
+Contact Information:
+- Name: ${formData.name}
+- Phone: ${formData.phone}
+- Email: ${formData.email}
+- Description: ${formData.description || 'N/A'}
+    `;
 
     const templateParams = {
-      to_name: "Gastro",
-      message,
-      to_email: "victorgastro18@gmail.com",
-      to_title: "Confirmation"
+      to_name: "Wheelhouse Construction",
+      message: bookingDetails,
+      to_email: "info@wheelhousesc.com",
+      to_title: "Booking Confirmation",
+      from_name: formData.name,
+      from_email: formData.email,
+      from_phone: formData.phone
     };
 
+    // Send email
     emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, templateParams, EMAIL_PUBLIC_KEY)
       .then((res) => {
-        setShowGuide(true);
+        setShowProgress(false);
+        setSnackbar({
+          open: true,
+          message: 'Booking confirmation sent successfully!',
+          severity: 'success'
+        });
+        // Reset form
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          description: ''
+        });
+        // Optionally show guide after success
+        setTimeout(() => {
+          setShowGuide(true);
+        }, 2000);
       })
-      .catch((err) => alert("Error sending email."));
+      .catch((err) => {
+        setShowProgress(false);
+        setSnackbar({
+          open: true,
+          message: 'Error sending email. Please try again.',
+          severity: 'error'
+        });
+      });
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
   };
 
   return (
@@ -179,7 +393,7 @@ function Confirmation() {
             <Sidebar />
             <div className="confirmation-main-content">
               <TimeZoneSelect timezone={timezone} setTimezone={setTimezone} />
-              <Box display="flex" gap={4}>
+              <Box display="flex" gap={4} className="confirmation-calendar-wrapper">
                 <Box className="confirmation-calendar-box" flex={1}>
                   <Calendar
                     onChange={setSelectedDate}
@@ -224,13 +438,177 @@ function Confirmation() {
               {selectedTime && (
                 <div className="confirmation">
                   <p>Booking: {selectedTime} on {selectedDate.toDateString()}</p>
-                  <button onClick={handleBook}>Confirm & Send to Gmail</button>
+                  <button onClick={handleConfirm}>Confirm</button>
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
+
+      {/* Contact Information Modal */}
+      <Dialog 
+        open={openModal} 
+        onClose={handleCloseModal}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            padding: 1
+          }
+        }}
+      >
+        <DialogTitle sx={{ pb: 1 }}>Contact Information</DialogTitle>
+        <DialogContent>
+          {/* Booking Summary Section */}
+          <Box sx={{ mb: 3, p: 2, bgcolor: '#f5f5f5', borderRadius: 2 }}>
+            <Box sx={{ fontWeight: 600, mb: 2, fontSize: '1.1rem', color: '#570f17' }}>
+              Booking Summary
+            </Box>
+            
+            {/* Show selected answers from booking steps */}
+            {bookingSteps.map((step, index) => {
+              const answer = bookingAnswers[step.name];
+              if (!answer) return null;
+              return (
+                <Box key={index} sx={{ mb: 1.5 }}>
+                  <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
+                    {step.title}
+                  </Box>
+                  <Box sx={{ fontSize: '0.95rem', fontWeight: 500, color: '#222' }}>
+                    {answer}
+                  </Box>
+                </Box>
+              );
+            })}
+            
+            {/* Timezone */}
+            <Box sx={{ mb: 1.5, mt: 2, pt: 2, borderTop: '1px solid #ddd' }}>
+              <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
+                Timezone
+              </Box>
+              <Box sx={{ fontSize: '0.95rem', fontWeight: 500, color: '#222' }}>
+                {timeZoneOptions.find(opt => opt.value === timezone)?.label || timezone}
+              </Box>
+            </Box>
+            
+            {/* Selected Date */}
+            <Box sx={{ mb: 1.5 }}>
+              <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
+                Date
+              </Box>
+              <Box sx={{ fontSize: '0.95rem', fontWeight: 500, color: '#222' }}>
+                {formatDateHeader(selectedDate)}
+              </Box>
+            </Box>
+            
+            {/* Selected Time Slot */}
+            {selectedTime && (
+              <Box sx={{ mb: 1.5 }}>
+                <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
+                  Time Slot
+                </Box>
+                <Box sx={{ fontSize: '0.95rem', fontWeight: 500, color: '#222' }}>
+                  {selectedTime}
+                </Box>
+              </Box>
+            )}
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+            <TextField
+              label="Name *"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              fullWidth
+              required
+              variant="outlined"
+            />
+            <TextField
+              label="Phone *"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              fullWidth
+              required
+              variant="outlined"
+              type="tel"
+            />
+            <TextField
+              label="Email *"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              fullWidth
+              required
+              variant="outlined"
+              type="email"
+            />
+            <TextField
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              fullWidth
+              multiline
+              rows={4}
+              variant="outlined"
+              placeholder="Tell us about your project or any additional information..."
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={handleCloseModal} color="inherit">
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleSend} 
+            variant="contained"
+            sx={{ bgcolor: '#570f17', '&:hover': { bgcolor: '#911515' } }}
+          >
+            Send
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Progress Modal */}
+      <Dialog 
+        open={showProgress}
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            padding: 3,
+            minWidth: 250
+          }
+        }}
+      >
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <CircularProgress size={50} />
+            <Box sx={{ textAlign: 'center', fontWeight: 500 }}>
+              Sending booking confirmation...
+            </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      {/* Success/Error Snackbar */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

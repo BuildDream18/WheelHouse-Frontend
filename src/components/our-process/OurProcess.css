@@ -117,3 +117,59 @@
     gap: 0;
   }
 }
+
+@media (max-width: 600px) {
+  .container-process {
+    padding: 30px 20px !important;
+    height: auto !important;
+  }
+  
+  .container-process .process-title {
+    font-size: 2rem !important;
+    padding-top: 30px !important;
+  }
+  
+  .container-process .process-title-small {
+    font-size: 1.2rem !important;
+    padding-bottom: 30px !important;
+  }
+  
+  .process-introduction {
+    font-size: 1.5rem !important;
+    padding: 20px 15px 0 15px !important;
+  }
+  
+  .process-introduction-quote {
+    font-size: 0.95rem !important;
+    padding: 15px !important;
+  }
+  
+  .phases-section {
+    padding: 20px 4vw !important;
+    margin: 20px auto !important;
+  }
+  
+  .phase-block {
+    margin-bottom: 32px !important;
+    padding-bottom: 24px !important;
+  }
+  
+  .phase-block h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .phase-block p {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .phase-list-container ul {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .phase-timeline,
+  .phase-note {
+    font-size: 0.95rem !important;
+  }
+}

@@ -146,3 +146,40 @@
     margin-bottom: 0; /* Remove margin as gap is used */
   }
 }
+
+@media (max-width: 600px) {
+  .exploration-root {
+    padding: 20px 10px !important;
+    padding-top: 80px !important;
+    gap: 20px !important;
+  }
+  
+  .exploration-video-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 250px !important;
+  }
+  
+  .exploration-card {
+    padding: 24px !important;
+    max-width: 100% !important;
+  }
+  
+  .exploration-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  .exploration-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .exploration-options label {
+    font-size: 1rem !important;
+  }
+  
+  .exploration-next-btn {
+    font-size: 1rem !important;
+    padding: 10px 0 !important;
+  }
+}

@@ -242,3 +242,208 @@ abbr[title] {
 .react-calendar__navigation__prev2-button {
   visibility: hidden;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+  .confirmation-app-container {
+    width: 95% !important;
+    margin-top: -30px !important;
+  }
+  
+  .confirmation-header {
+    font-size: 1.5rem !important;
+    padding-top: 15px !important;
+  }
+  
+  .confirmation-booking-box {
+    flex-direction: column !important;
+    padding: 20px !important;
+  }
+  
+  .confirmation-sidebar {
+    width: 100% !important;
+    padding: 0 0 20px 0 !important;
+    text-align: center !important;
+  }
+  
+  .confirmation-sidebar .logo {
+    width: 150px !important;
+    margin: 0 auto 15px auto !important;
+  }
+  
+  .confirmation-main-content {
+    width: 100% !important;
+  }
+  
+  .confirmation-time-zone-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .confirmation-time-zone-input {
+    width: 100% !important;
+  }
+  
+  .confirmation-calendar-box {
+    width: 100% !important;
+  }
+  
+  .react-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .confirmation-calendar-wrapper {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  
+  .confirmation-calendar-box {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .confirmation-timeslotlist-box {
+    width: 100% !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    margin-top: 0 !important;
+    height: auto !important;
+  }
+  
+  .confirmation-time-slots h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  .confirmation-slot {
+    font-size: 1rem !important;
+    padding: 12px 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .confirmation-app-container {
+    width: 100% !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  
+  .confirmation-header {
+    font-size: 1.2rem !important;
+    padding-top: 10px !important;
+    padding: 15px 10px 10px 10px !important;
+  }
+  
+  .confirmation-booking-box {
+    padding: 10px !important;
+  }
+  
+  .confirmation-sidebar {
+    padding-bottom: 15px !important;
+  }
+  
+  .confirmation-sidebar .logo {
+    width: 120px !important;
+  }
+  
+  .confirmation-sidebar h2 {
+    font-size: 1.2rem !important;
+  }
+  
+  .confirmation-sidebar p {
+    font-size: 0.9rem !important;
+    margin: 5px 0 !important;
+  }
+  
+  .confirmation-time-zone-row {
+    font-size: 0.85rem !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  
+  .confirmation-time-zone-row > span {
+    font-size: 0.85rem !important;
+  }
+  
+  .confirmation-time-zone-input {
+    width: 100% !important;
+  }
+  
+  .confirmation-calendar-wrapper {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  
+  .confirmation-calendar-box {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 10px !important;
+  }
+  
+  .react-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 8px 0 16px 0 !important;
+  }
+  
+  .react-calendar__navigation__label {
+    font-size: 1rem !important;
+  }
+  
+  .react-calendar__tile {
+    height: 36px !important;
+    width: 36px !important;
+    font-size: 0.9rem !important;
+    margin: 2px !important;
+  }
+  
+  .react-calendar__month-view__weekdays {
+    font-size: 0.85rem !important;
+  }
+  
+  .confirmation-timeslotlist-box {
+    width: 100% !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    margin-top: 0 !important;
+    height: auto !important;
+  }
+  
+  .confirmation-time-slots {
+    margin-top: 0 !important;
+  }
+  
+  .confirmation-time-slots h3 {
+    font-size: 1rem !important;
+    margin-bottom: 12px !important;
+    text-align: center !important;
+  }
+  
+  .confirmation-slot {
+    font-size: 0.9rem !important;
+    padding: 12px 0 !important;
+  }
+  
+  .confirmation {
+    padding: 15px !important;
+    margin-top: 15px !important;
+    text-align: center !important;
+  }
+  
+  .confirmation p {
+    font-size: 0.9rem !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .confirmation button {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 0.95rem !important;
+    border-radius: 6px !important;
+  }
+}

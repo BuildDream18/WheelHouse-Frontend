@@ -193,3 +193,102 @@
   color: #ffffff !important;
   border: 1px solid #570f17 !important;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
+  .container {
+    padding: 100px 40px !important;
+  }
+  
+  .container .home-title {
+    font-size: 48px !important;
+    padding-top: 50px !important;
+  }
+  
+  .container .home-title-small {
+    font-size: 28px !important;
+    padding-bottom: 50px !important;
+  }
+  
+  .case-studies-sub {
+    width: 45% !important;
+    height: auto !important;
+    min-height: 60vh !important;
+  }
+  
+  .case-studies-sub-title {
+    font-size: 24px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .case-studies-sub-text,
+  .case-studies-sub-text1 {
+    font-size: 16px !important;
+    height: auto !important;
+    min-height: 20% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 60px 20px !important;
+  }
+  
+  .container .home-title {
+    font-size: 32px !important;
+    padding-top: 30px !important;
+  }
+  
+  .container .home-title-small {
+    font-size: 20px !important;
+    padding-bottom: 30px !important;
+  }
+  
+  .case-stuides {
+    flex-direction: column !important;
+    gap: 30px !important;
+    padding: 0 10px !important;
+  }
+  
+  .case-studies-sub {
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .case-studies-sub1-image,
+  .case-studies-sub2-image,
+  .case-studies-sub3-image,
+  .case-studies-sub4-image,
+  .case-studies-sub5-image,
+  .case-studies-sub6-image {
+    height: 40vh !important;
+    min-height: 250px !important;
+  }
+  
+  .case-studies-sub-title {
+    font-size: 20px !important;
+    padding: 15px 0 10px 0 !important;
+    height: auto !important;
+  }
+  
+  .case-studies-sub-text,
+  .case-studies-sub-text1 {
+    font-size: 14px !important;
+    height: auto !important;
+    padding: 10px 0 !important;
+    line-height: 1.5 !important;
+  }
+  
+  .case-studies-sub-button {
+    height: auto !important;
+    padding: 15px 0 !important;
+  }
+  
+  .learn-more-button {
+    font-size: 12px !important;
+    padding: 8px 15px !important;
+    letter-spacing: 1px !important;
+  }
+}

@@ -113,7 +113,7 @@ export default function Scheduling() {
   return (
     <div className="exploration-root">
       {completed ? (
-        <Confirmation />
+        <Confirmation bookingAnswers={answers} />
       ) : (
         <>
           <div className="exploration-left">

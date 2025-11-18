@@ -19,11 +19,12 @@ import logo from '../../assets/images/logo.png';
 import ComplimentaryGuide from './ComplimentaryGuide';
 
 // Import gapi-script - it's in package.json, but we'll handle errors gracefully
-import { gapi } from 'gapi-script';
+// import { gapi } from 'gapi-script';
 
-const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
-const API_KEY = 'YOUR_GOOGLE_API_KEY';
-const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+// Google Calendar API Configuration - COMMENTED OUT FOR NOW
+// const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+// const API_KEY = 'YOUR_GOOGLE_API_KEY';
+// const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
 const EMAIL_SERVICE_ID = "service_j7alg5m";
 const EMAIL_TEMPLATE_ID = "template_7auz72q";
@@ -195,85 +196,91 @@ function Confirmation({ bookingAnswers = {} }) {
 
   const bookingSteps = getBookingSteps();
 
-  function fetchBusySlots() {
-    // Check if API keys are configured (not placeholders)
-    if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY' || 
-        !CLIENT_ID || CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
-      console.log('Google Calendar API not configured. Skipping busy slot check.');
-      return;
-    }
+  // Google Calendar function - COMMENTED OUT FOR NOW
+  // function fetchBusySlots() {
+  //   // Check if API keys are configured (not placeholders)
+  //   if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY' || 
+  //       !CLIENT_ID || CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') {
+  //     console.log('Google Calendar API not configured. Skipping busy slot check.');
+  //     return;
+  //   }
 
-    // Check if gapi is available
-    const gapiInstance = gapi || (typeof window !== 'undefined' ? window.gapi : null);
-    if (!gapiInstance || typeof gapiInstance.load !== 'function') {
-      console.log('Google API not loaded. Skipping busy slot check.');
-      return;
-    }
+  //   // Check if gapi is available
+  //   const gapiInstance = gapi || (typeof window !== 'undefined' ? window.gapi : null);
+  //   if (!gapiInstance || typeof gapiInstance.load !== 'function') {
+  //     console.log('Google API not loaded. Skipping busy slot check.');
+  //     return;
+  //   }
 
-    try {
-      gapiInstance.load('client:auth2', () => {
-        gapiInstance.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-          scope: SCOPES,
-        }).then(() => {
-          const authInstance = gapiInstance.auth2.getAuthInstance();
+  //   try {
+  //     gapiInstance.load('client:auth2', () => {
+  //       gapiInstance.client.init({
+  //         apiKey: API_KEY,
+  //         clientId: CLIENT_ID,
+  //         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+  //         scope: SCOPES,
+  //       }).then(() => {
+  //         const authInstance = gapiInstance.auth2.getAuthInstance();
           
-          // Check if user is already signed in
-          if (authInstance.isSignedIn.get()) {
-            // User is already signed in, use existing session
-            return Promise.resolve(authInstance.currentUser.get());
-          } else {
-            // User needs to sign in
-            return authInstance.signIn({
-              prompt: 'consent' // Force consent screen to get refresh token
-            });
-          }
-        }).then(() => {
-          const now = new Date();
-          const end = new Date();
-          end.setDate(now.getDate() + 7); // Next 7 days
+  //         // Check if user is already signed in
+  //         if (authInstance.isSignedIn.get()) {
+  //           // User is already signed in, use existing session
+  //           return Promise.resolve(authInstance.currentUser.get());
+  //         } else {
+  //           // User needs to sign in
+  //           return authInstance.signIn({
+  //             prompt: 'consent' // Force consent screen to get refresh token
+  //           });
+  //         }
+  //       }).then(() => {
+  //         const now = new Date();
+  //         const end = new Date();
+  //         end.setDate(now.getDate() + 7); // Next 7 days
     
-          return gapiInstance.client.calendar.freebusy.query({
-            timeMin: now.toISOString(),
-            timeMax: end.toISOString(),
-            items: [{ id: 'victorcastro9218@gmail.com' }]
-          });
-        }).then(response => {
-          const busyTimes = response.result.calendars['victorcastro9218@gmail.com'].busy;
-          console.log('Busy slots:', busyTimes);
-          // Now you can compute available slots based on your timeSlots array
-        }).catch((error) => {
-          console.error('Error fetching busy slots from Google Calendar:', error);
+  //         return gapiInstance.client.calendar.freebusy.query({
+  //           timeMin: now.toISOString(),
+  //           timeMax: end.toISOString(),
+  //           items: [{ id: 'victorcastro9218@gmail.com' }]
+  //         });
+  //       }).then(response => {
+  //         const busyTimes = response.result.calendars['victorcastro9218@gmail.com'].busy;
+  //         console.log('Busy slots:', busyTimes);
+  //         // Now you can compute available slots based on your timeSlots array
+  //       }).catch((error) => {
+  //         console.error('Error fetching busy slots from Google Calendar:', error);
           
-          // Handle specific error cases
-          if (error.error === 'invalid_grant' || error.message?.includes('Invalid grant')) {
-            console.warn('OAuth token expired or invalid. User needs to re-authenticate.');
-            // Try to sign out and clear the session
-            try {
-              const authInstance = gapiInstance.auth2?.getAuthInstance();
-              if (authInstance) {
-                authInstance.signOut().then(() => {
-                  console.log('Signed out. User will need to sign in again on next attempt.');
-                });
-              }
-            } catch (signOutError) {
-              console.error('Error signing out:', signOutError);
-            }
-          }
+  //         // Handle specific error cases
+  //         if (error.error === 'invalid_grant' || error.message?.includes('Invalid grant')) {
+  //           console.warn('OAuth token expired or invalid. User needs to re-authenticate.');
+  //           // Try to sign out and clear the session
+  //           try {
+  //             const authInstance = gapiInstance.auth2?.getAuthInstance();
+  //             if (authInstance) {
+  //               authInstance.signOut().then(() => {
+  //                 console.log('Signed out. User will need to sign in again on next attempt.');
+  //               });
+  //             }
+  //           } catch (signOutError) {
+  //             console.error('Error signing out:', signOutError);
+  //           }
+  //         }
           
-          // Continue without blocking the UI - the booking system will work without calendar integration
-        });
-      });
-    } catch (error) {
-      console.error('Error initializing Google Calendar API:', error);
-      // Continue without blocking the UI
-    }
-  }
+  //         // Continue without blocking the UI - the booking system will work without calendar integration
+  //       });
+  //     });
+  //   } catch (error) {
+  //     console.error('Error initializing Google Calendar API:', error);
+  //     // Continue without blocking the UI
+  //   }
+  // }
 
+  // useEffect(() => {
+  //   fetchBusySlots();
+  // }, []);
+
+  // Open modal immediately when component mounts (after questionnaire completion)
   useEffect(() => {
-    fetchBusySlots();
+    setOpenModal(true);
   }, []);
 
   const handleConfirm = () => {
@@ -320,23 +327,19 @@ function Confirmation({ bookingAnswers = {} }) {
       return `- ${step.title}: ${answer}`;
     }).filter(Boolean).join('\n');
 
-    // Prepare email message
+    // Prepare email message (date/time removed since we skip calendar selection)
     const bookingDetails = `
-Booking Questionnaire Answers:
-${bookingSummary}
+      Booking Questionnaire Answers:
+      ${bookingSummary}
 
-Meeting Details:
-- Date: ${formatDateHeader(selectedDate)}
-- Time: ${selectedTime}
-- Timezone: ${timeZoneOptions.find(opt => opt.value === timezone)?.label || timezone}
-
-Contact Information:
-- Name: ${formData.name}
-- Phone: ${formData.phone}
-- Email: ${formData.email}
-- Description: ${formData.description || 'N/A'}
+      Contact Information:
+      - Name: ${formData.name}
+      - Phone: ${formData.phone}
+      - Email: ${formData.email}
+      - Description: ${formData.description || 'N/A'}
     `;
 
+    // Template parameters - make sure these match your EmailJS template variables exactly
     const templateParams = {
       to_name: "Wheelhouse Construction",
       message: bookingDetails,
@@ -344,12 +347,14 @@ Contact Information:
       to_title: "Booking Confirmation",
       from_name: formData.name,
       from_email: formData.email,
-      from_phone: formData.phone
+      from_phone: formData.phone,
+      reply_to: formData.email  // Add reply_to field which is often required
     };
 
-    // Send email
+    // Send email using EmailJS
     emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, templateParams, EMAIL_PUBLIC_KEY)
       .then((res) => {
+        console.log('EmailJS success:', res.status, res.text);
         setShowProgress(false);
         setSnackbar({
           open: true,
@@ -369,10 +374,27 @@ Contact Information:
         }, 2000);
       })
       .catch((err) => {
+        console.error('EmailJS error:', err);
         setShowProgress(false);
+        let errorMessage = 'Error sending email. Please try again.';
+        
+        // Check for Gmail API errors (EmailJS service configuration issue)
+        const errorText = err.text || err.message || '';
+        if (errorText.includes('Gmail_API') || errorText.includes('Invalid grant')) {
+          errorMessage = 'Gmail account needs to be reconnected. Please check your EmailJS dashboard to reconnect your Gmail account.';
+        } else if (err.status === 412) {
+          errorMessage = 'Template validation failed. Please check your EmailJS template configuration.';
+        } else if (err.status === 400) {
+          errorMessage = 'Invalid request. Please check all required fields are filled.';
+        } else if (err.status === 0) {
+          errorMessage = 'Network error. Please check your internet connection.';
+        } else if (err.text) {
+          errorMessage = `Error: ${err.text}`;
+        }
+        
         setSnackbar({
           open: true,
-          message: 'Error sending email. Please try again.',
+          message: errorMessage,
           severity: 'error'
         });
       });
@@ -387,63 +409,65 @@ Contact Information:
       {showGuide ? (
         <ComplimentaryGuide />
       ) : (
-        <div className="confirmation-app-container">
-          <h1 className="confirmation-header">Exploration Meeting With Us</h1>
-          <div className="confirmation-booking-box">
-            <Sidebar />
-            <div className="confirmation-main-content">
-              <TimeZoneSelect timezone={timezone} setTimezone={setTimezone} />
-              <Box display="flex" gap={4} className="confirmation-calendar-wrapper">
-                <Box className="confirmation-calendar-box" flex={1}>
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    minDate={new Date()} // Prevent selecting past dates
-                    tileDisabled={({ date, view }) => view === 'month' && (date.getDay() === 0 || date.getDay() === 6)}
-                    tileClassName={({ date, view }) => {
-                      if (
-                        selectedDate &&
-                        date.getDate() === selectedDate.getDate() &&
-                        date.getMonth() === selectedDate.getMonth() &&
-                        date.getFullYear() === selectedDate.getFullYear()
-                      ) {
-                        return 'custom-selected-date';
-                      }
-                      // Add custom class for today
-                      if (
-                        date.getDate() === new Date().getDate() &&
-                        date.getMonth() === new Date().getMonth() &&
-                        date.getFullYear() === new Date().getFullYear()
-                      ) {
-                        return 'custom-today-date';
-                      }
-                      return null;
-                    }}
-                    prevLabel={<span className="calendar-nav-arrow">{'<'}</span>}
-                    nextLabel={<span className="calendar-nav-arrow">{'>'}</span>}
-                    formatShortWeekday={(locale, date) =>
-                      ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()]
-                    }
-                  />
-                </Box>
-                <Box className="confirmation-timeslotlist-box" flex={1}>
-                  <TimeSlotList
-                    selectedTime={selectedTime}
-                    setSelectedTime={setSelectedTime}
-                    timeSlots={timeSlots}
-                    selectedDate={selectedDate}
-                  />
-                </Box>
-              </Box>
-              {selectedTime && (
-                <div className="confirmation">
-                  <p>Booking: {selectedTime} on {selectedDate.toDateString()}</p>
-                  <button onClick={handleConfirm}>Confirm</button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        // Calendar and time selection UI removed - modal opens directly after questionnaire
+        // <div className="confirmation-app-container">
+        //   <h1 className="confirmation-header">Exploration Meeting With Us</h1>
+        //   <div className="confirmation-booking-box">
+        //     <Sidebar />
+        //     <div className="confirmation-main-content">
+        //       <TimeZoneSelect timezone={timezone} setTimezone={setTimezone} />
+        //       <Box display="flex" gap={4} className="confirmation-calendar-wrapper">
+        //         <Box className="confirmation-calendar-box" flex={1}>
+        //           <Calendar
+        //             onChange={setSelectedDate}
+        //             value={selectedDate}
+        //             minDate={new Date()} // Prevent selecting past dates
+        //             tileDisabled={({ date, view }) => view === 'month' && (date.getDay() === 0 || date.getDay() === 6)}
+        //             tileClassName={({ date, view }) => {
+        //               if (
+        //                 selectedDate &&
+        //                 date.getDate() === selectedDate.getDate() &&
+        //                 date.getMonth() === selectedDate.getMonth() &&
+        //                 date.getFullYear() === selectedDate.getFullYear()
+        //               ) {
+        //                 return 'custom-selected-date';
+        //               }
+        //               // Add custom class for today
+        //               if (
+        //                 date.getDate() === new Date().getDate() &&
+        //                 date.getMonth() === new Date().getMonth() &&
+        //                 date.getFullYear() === new Date().getFullYear()
+        //               ) {
+        //                 return 'custom-today-date';
+        //               }
+        //               return null;
+        //             }}
+        //             prevLabel={<span className="calendar-nav-arrow">{'<'}</span>}
+        //             nextLabel={<span className="calendar-nav-arrow">{'>'}</span>}
+        //             formatShortWeekday={(locale, date) =>
+        //               ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()]
+        //             }
+        //           />
+        //         </Box>
+        //         <Box className="confirmation-timeslotlist-box" flex={1}>
+        //           <TimeSlotList
+        //             selectedTime={selectedTime}
+        //             setSelectedTime={setSelectedTime}
+        //             timeSlots={timeSlots}
+        //             selectedDate={selectedDate}
+        //           />
+        //         </Box>
+        //       </Box>
+        //       {selectedTime && (
+        //         <div className="confirmation">
+        //           <p>Booking: {selectedTime} on {selectedDate.toDateString()}</p>
+        //           <button onClick={handleConfirm}>Confirm</button>
+        //         </div>
+        //       )}
+        //     </div>
+        //   </div>
+        // </div>
+        null
       )}
 
       {/* Contact Information Modal */}
@@ -483,8 +507,8 @@ Contact Information:
               );
             })}
             
-            {/* Timezone */}
-            <Box sx={{ mb: 1.5, mt: 2, pt: 2, borderTop: '1px solid #ddd' }}>
+            {/* Date/Time selection removed - calendar UI skipped */}
+            {/* <Box sx={{ mb: 1.5, mt: 2, pt: 2, borderTop: '1px solid #ddd' }}>
               <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
                 Timezone
               </Box>
@@ -493,7 +517,6 @@ Contact Information:
               </Box>
             </Box>
             
-            {/* Selected Date */}
             <Box sx={{ mb: 1.5 }}>
               <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
                 Date
@@ -503,7 +526,6 @@ Contact Information:
               </Box>
             </Box>
             
-            {/* Selected Time Slot */}
             {selectedTime && (
               <Box sx={{ mb: 1.5 }}>
                 <Box sx={{ fontSize: '0.85rem', color: '#666', mb: 0.5 }}>
@@ -513,7 +535,7 @@ Contact Information:
                   {selectedTime}
                 </Box>
               </Box>
-            )}
+            )} */}
           </Box>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>

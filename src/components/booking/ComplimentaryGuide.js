@@ -1,31 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import TextField from "@mui/material/TextField";
+// import Dialog from "@mui/material/Dialog";
+// import DialogTitle from "@mui/material/DialogTitle";
+// import DialogContent from "@mui/material/DialogContent";
+// import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+// import useMediaQuery from "@mui/material/useMediaQuery";
+// import { useTheme } from "@mui/material/styles";
 
 const ComplimentaryGuide = () => {
-  const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "" });
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  // const [open, setOpen] = useState(false);
+  // const [form, setForm] = useState({ name: "", email: "" });
+  // const theme = useTheme();
+  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: handle form submission (API call, etc.)
-    handleClose();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // TODO: handle form submission (API call, etc.)
+  //   handleClose();
+  // };
+
+  const handleDownload = () => {
+    // Google Drive file ID from the sharing link
+    const fileId = "1YC1BrS7sZ-eD5kyGCpzZErkn16sa3g0J";
+    // Convert to direct download link
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = "Complimentary-Guide.pdf"; // Suggested filename
+    link.target = "_blank"; // Open in new tab as fallback
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -87,13 +103,14 @@ const ComplimentaryGuide = () => {
             mb: 1,
             "&:hover": { background: "#ffb347" },
           }}
-          onClick={handleOpen}
+          onClick={handleDownload}
         >
           Click Here For FREE Download
         </Button>
       </Box>
 
-      <Dialog open={open} onClose={handleClose} fullScreen={fullScreen} maxWidth="sm" fullWidth>
+      {/* Modal Dialog - Commented Out */}
+      {/* <Dialog open={open} onClose={handleClose} fullScreen={fullScreen} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ textAlign: "center", fontWeight: 700, fontSize: "2rem" }}>
           Where should we send you your <span style={{ color: "#800000" }}>FREE Guide?</span>
         </DialogTitle>
@@ -148,7 +165,7 @@ const ComplimentaryGuide = () => {
             </Box>
           </Box>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 };

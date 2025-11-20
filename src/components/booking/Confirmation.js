@@ -343,7 +343,7 @@ function Confirmation({ bookingAnswers = {} }) {
     const templateParams = {
       to_name: "Wheelhouse Construction",
       message: bookingDetails,
-      to_email: "info@wheelhousesc.com",
+      to_email: "victorcastro9218@gmail.com",
       to_title: "Booking Confirmation",
       from_name: formData.name,
       from_email: formData.email,
@@ -483,7 +483,7 @@ function Confirmation({ bookingAnswers = {} }) {
           }
         }}
       >
-        <DialogTitle sx={{ pb: 1 }}>Contact Information</DialogTitle>
+        <DialogTitle sx={{ pb: 1 }}>Booking Confirmation</DialogTitle>
         <DialogContent>
           {/* Booking Summary Section */}
           <Box sx={{ mb: 3, p: 2, bgcolor: '#f5f5f5', borderRadius: 2 }}>
@@ -536,6 +536,10 @@ function Confirmation({ bookingAnswers = {} }) {
                 </Box>
               </Box>
             )} */}
+          </Box>
+
+          <Box sx={{ fontSize: '0.95rem', fontWeight: 500, color: '#222' }}>
+            Fill out information below and someone will contact you to book a meeting
           </Box>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>

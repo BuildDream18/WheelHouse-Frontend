@@ -27,7 +27,7 @@ import ComplimentaryGuide from './ComplimentaryGuide';
 // const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
 const EMAIL_SERVICE_ID = "service_j7alg5m";
-const EMAIL_TEMPLATE_ID = "template_7auz72q";
+const EMAIL_TEMPLATE_ID = "template_6p1evt9";
 const EMAIL_PUBLIC_KEY = "1t_B_IOuSwzsxNCNk";
 
 const timeSlots = [
@@ -343,7 +343,7 @@ function Confirmation({ bookingAnswers = {} }) {
     const templateParams = {
       to_name: "Wheelhouse Construction",
       message: bookingDetails,
-      to_email: "victorcastro9218@gmail.com",
+      to_email: "info@wheelhousesc.com",
       to_title: "Booking Confirmation",
       from_name: formData.name,
       from_email: formData.email,
@@ -614,7 +614,7 @@ function Confirmation({ bookingAnswers = {} }) {
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
             <CircularProgress size={50} />
             <Box sx={{ textAlign: 'center', fontWeight: 500 }}>
-              Sending booking confirmation...
+              Sending Booking Request...
             </Box>
           </Box>
         </DialogContent>

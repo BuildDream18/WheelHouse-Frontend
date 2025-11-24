@@ -30,7 +30,7 @@ const ComplimentaryGuide = () => {
 
   const handleDownload = () => {
     // Google Drive file ID from the sharing link
-    const fileId = "1YC1BrS7sZ-eD5kyGCpzZErkn16sa3g0J";
+    const fileId = "1Z5p25LB136HtvPvxe8Tnbg2sT_BC0bdl";
     // Convert to direct download link
     const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
     
